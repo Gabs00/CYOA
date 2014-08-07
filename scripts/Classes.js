@@ -15,8 +15,6 @@ var Question = function(question){
   this.question = question;
   this.vote = 0;
   this.userVotes = {};
-  this.voteUp = [];
-  this.voteDown = [];
 };
 
 Question.prototype = {};
@@ -51,6 +49,8 @@ Question.prototype.getVote =function(user){
 };
 var QuestionList = function(){
   this._questionList = {};
+  this._voteWatcher = {};
+  this._displayed = 0;
   this.length = 0;
 };
 
@@ -70,4 +70,36 @@ QuestionList.prototype.voteDownButton = function(link){
     this.voteDown = link;
   }
   return this.voteDown;
+};
+QuestionList.prototype.vote = function(key, user, direction){
+  if(key < 0 || key >= this.length){
+    return;
+  }
+  var oldVote = this._questionList[key].getVote(user);
+  this._voteWatcher[key] = this._voteWatcher[key] || oldVote;
+  this._questionList[key].vote(user, direction);
+  var newVote = this._questionList[key].getVote(user);
+  if(oldVote !== newVote){
+    this._voteWatcher[key] = oldVote;
+  }
+};
+QuestionList.prototype.getQuestionAt = function(key){
+  if(key < 0 || key >= this.length){
+    return;
+  }
+  return this._questionList[key];
+};
+
+QuestionList.prototype.getNextQuestion = function(){
+  if(this._displayed < this.length){
+    var key = this._displayed;
+    this._displayed++;
+
+    var question = this.getQuestionAt(key);
+    if(question){
+      return {
+        question
+      };
+    }
+  }
 };
