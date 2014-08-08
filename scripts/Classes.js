@@ -1,5 +1,6 @@
-var User = function(username){
-  this.username = username;
+addClasses = function(){
+var User = function(param){
+  this.username = param.username;
 };
 
 User.prototype = {};
@@ -11,39 +12,34 @@ User.prototype.getUsername = function(){
   return this.username;
 };
 
-var Question = function(question){
-  this.question = question;
-  this.vote = 0;
-  this.userVotes = {};
+var Question = function(params){
+  this.question = params.question;
+  this.author = params.author;
+  this.votes = {};
 };
 
 Question.prototype = {};
-Question.prototype.checkVote = function(user, direction){
-  var vote = this.userVotes[user];
-  if(vote === undefined){
-      return 1;
-  } else if(vote !== direction){
-    return -2;
-  }
-  return 0;
+Question.prototype.getQuestion = function(){
+  return this.question;
+};
+
+Question.prototype.getAuthor = function(){
+  return this.author;
+};
+Question.prototype.getVotes = function(){
+  return this.votes;
 };
 
 Question.prototype.userVote = function(user, direction){
-  var vote = this.checkVote(user, direction);
-  if(vote !== 0){
-    this.userVotes[user] = direction;
-    if(direction === 'up'){
-      this.vote+=vote;
-    } else {
-      this.vote-=vote;
-    }
-  }
+  this.votes[user] = direction; 
+  return this.getUserVote(user);
 };
 
-Question.prototype.getVote =function(user){
-  var vote = this.userVotes[user];
+Question.prototype.getUserVote =function(user){
+  var vote = this.votes[user];
   if(vote === undefined){
-    return "No Vote Placed";
+    vote = 0;
+    this.votes[user] = 0;
   }
   return vote;
 };
@@ -56,8 +52,11 @@ var QuestionList = function(){
 
 QuestionList.prototype = {};
 QuestionList.prototype.addQuestion = function(question){
-  this._questionList[this.length] = question;
+  var key = this.length;
+  this._questionList[key] = question;
+  this._voteWatcher[key] = 0;
   this.length++;
+  return key;
 };
 QuestionList.prototype.voteUpButton = function(link){
   if(link !== undefined){
@@ -75,13 +74,31 @@ QuestionList.prototype.vote = function(key, user, direction){
   if(key < 0 || key >= this.length){
     return;
   }
-  var oldVote = this._questionList[key].getVote(user);
-  this._voteWatcher[key] = this._voteWatcher[key] || oldVote;
-  this._questionList[key].vote(user, direction);
-  var newVote = this._questionList[key].getVote(user);
+  direction = (direction === 'up') ? 1:-1;
+  var oldVote = this._questionList[key].getUserVote(user);
+  this._questionList[key].userVote(user, direction);
+  var newVote = this._questionList[key].getUserVote(user);
   if(oldVote !== newVote){
-    this._voteWatcher[key] = oldVote;
+    this._voteWatcher[key] = this.getVoteTotal(key);
   }
+  return this._voteWatcher[key];
+};
+
+QuestionList.prototype.getVoteTotal = function(key){
+  if(key < 0 || key >= this.length){
+    return;
+  }
+  var votes = this.getQuestionAt(key).getVotes();
+  var total = _.reduce(votes, function(memo, value){
+    value = parseInt(value);
+    if(typeof value === 'number'){
+      return memo+value;
+    }
+  }, 0);
+  return total;
+};
+QuestionList.prototype.getUserVote = function(key,user){
+  return this._questionList[key].getUserVote(user);
 };
 QuestionList.prototype.getQuestionAt = function(key){
   if(key < 0 || key >= this.length){
@@ -90,16 +107,48 @@ QuestionList.prototype.getQuestionAt = function(key){
   return this._questionList[key];
 };
 
-QuestionList.prototype.getNextQuestion = function(){
+QuestionList.prototype.getNextQuestion = function(user){
   if(this._displayed < this.length){
     var key = this._displayed;
     this._displayed++;
-
+    var self = this;
     var question = this.getQuestionAt(key);
     if(question){
       return {
-        question
+        key:key,
+        question:question.getQuestion(),
+        author: question.getAuthor(),
+        votes: question.getVotes(),
+        my_vote:question.getUserVote(user),
+        VOTE_UP_BUTTON: this.voteUpButton(),
+        VOTE_DOWN_BUTTON: this.voteDownButton()
       };
     }
   }
+};
+
+/*
+var PageHandler = function(){
+
+};
+PageHandler.prototype.UserLoginView = function(){
+  return $();
+};
+
+PageHandler.prototype.AskAQuestionView = function(){
+
+};
+
+PageHandler.prototype.QuestionListView = function(){
+
+};
+*/
+  return function(className, args){
+    var classes = {
+      'Question': Question,
+      'QuestionList': QuestionList,
+      'User':User,
+    };
+    return new classes[className](args);
+  };
 };
