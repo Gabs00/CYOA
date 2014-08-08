@@ -2,14 +2,15 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="wclassth=device-wclassth" />
     <title>cyOverflow</title>
     <link type="text/css" rel="stylesheet" href="overflow.css">
     <script type="text/javascript" src="vendor/underscore-min.js"></script>
     <script type="text/javascript" src="vendor/jquery-1.8.2.min.js"></script>
-    <script type="text/javascript" src="scripts/Classes.js"></script>
-    <script type="text/javascript" src="scripts/namespaces.js"></script>
-    <script type="text/javascript" src="scripts/app.js"></script>
+    <script type="text/javascript" src="vendor/backbone/backbone.js"></script>
+    <script type="text/javascript" src="scripts/models/User.js"></script>
+    <script type="text/javascript" src="scripts/views/LoginView.js"></script>
+    <!--<script type="text/javascript" src="scripts/app.js"></script> -->
 
 </head>
 <body>
@@ -19,19 +20,15 @@
      </hgroup>
 	</header>
 	<div class="content">
-    <section id="userInput">
-	        <div id="loginView">
-	            <label for="userName" id="logInPrompt">Your name:</label>
-	            <input id="userName" type="text"/>
-	            <a id="logIn" class="button">That's me!</a>
-	        </div>
-	        <div id="newQuestionView">
-	            <label for="newQuestion" id="questionPrompt">Adventurer wants to know...</label>
-	            <textarea cols=20 rows=2 id="newQuestion" name="newQuestion">kj</textarea>
-	            <a id="addItem" class="button">Ask now!</a>
+    <section class="userInput">
+	        <div class= "LoginView"></div>
+	        <div class="newQuestionView">
+	            <label for="newQuestion" class="questionPrompt">Adventurer wants to know...</label>
+	            <textarea cols=20 rows=2 class="newQuestion" name="newQuestion">kj</textarea>
+	            <a class="addItem" class="button">Ask now!</a>
 	        </div>
 	    </section>
-	    <ul id="questions">
+	    <ul class="questions">
 	        <li class="question">
 	          <div class="voteStatus">
 	              <a class="vote voteup"></a>
@@ -40,7 +37,7 @@
 	          </div>
 	          <div class="questionText">
 	              <p>What is your quest?</p>
-	              <div class="questionAuthor">From: Bridge Keeper</div>
+	              <div class="questionAuthor">From: Brclassge Keeper</div>
 	          </div>
 	      </li>
 	      <li class="question">
@@ -51,12 +48,16 @@
 	        </div>
 	        <div class="questionText">
 	            <p>What is your favorite color?</p>
-	            <div class="questionAuthor">From: Bridge Keeper</div>
+	            <div class="questionAuthor">From: Brclassge Keeper</div>
 	        </div>
 	      </li>
 	    </ul>
 	</div>
-
+  <script>
+    var user = new User();
+    var loginView = new LoginView({model:user, el:$('.LoginView')});
+    loginView.render();
+  </script>
   
 </body>
 </html>
