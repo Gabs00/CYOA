@@ -1,0 +1,26 @@
+{
+  "name": "ChooseYourAPp",
+  "version": "0.0.1",
+  "homepage": "https://githut.com/Gabs00/chooseyourownapplication-starter",
+  "authors": [
+    "Gabs00 <gewen87@gmail.com>"
+  ],
+  "description": "Choose your own adventure, backbone.js, node.js, azure",
+  "main": "index.html",
+  "keywords": [
+    "cyoa",
+    "chooseyourownadventure"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "./vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "backbone": "~1.1.2"
+  }
+}
