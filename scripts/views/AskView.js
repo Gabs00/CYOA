@@ -30,8 +30,9 @@ var AskView = Backbone.View.extend({
   },
 
   template: function(){
+    var adventurer = (this.user) ? this.user.get('username'): 'Adventurer';
     var HTML =
-      '<label for="newQuestion" class="questionPrompt">Adventurer wants to know...</label>'+
+      '<label for="newQuestion" class="questionPrompt">'+ adventurer + ' wants to know...</label>'+
       '<textarea cols=20 rows=2 class="newQuestion" name="newQuestion"></textarea>'+
       '<a class="addItem" class="button">Ask now!</a>';
     return HTML;

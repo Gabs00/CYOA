@@ -16,9 +16,13 @@ var InputAreaView = Backbone.View.extend({
     }, this);
 
     this.loginView.on('loggedIn', function(){
+      this.AskView.user = this.loginView.model;
+      this.AskView.render();
       this.AskView.$el.show();
       this.trigger('loggedIn');
     }, this);
+    
+
 
     this.AskView.on('validate', function(string){
       this.model.validateString(string, this.AskView);
