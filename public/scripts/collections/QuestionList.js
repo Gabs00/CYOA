@@ -1,6 +1,9 @@
 var QuestionList = Backbone.Collection.extend({
   model: Question,
-
+  backend: 'questionBackend',
+  initialize: function(){
+    this.bindBackend();
+  },
   vote: function(vote, question, user){
     question = this.get(question);
     var votes = question.get('votes');

@@ -2,6 +2,9 @@ var QuestionEntryView = Backbone.View.extend({
   tagName: 'LI',
   className: 'question',
   initialize: function(){
+    this.model.on('change', function(){
+      this.render();
+    }, this);
     this.render();
   },
   events: {
@@ -11,6 +14,7 @@ var QuestionEntryView = Backbone.View.extend({
   vote: function(value){
     
     this.model.update(value);
+    this.model.save();
   },
   template: function(attr){
     var HTML = _.template(
