@@ -1,0 +1,24 @@
+Mon Aug 11 2014 04:57:39 GMT-0400 (Eastern Daylight Time):
+{ [Error: Cannot modify this site because another operation is in progress.]
+  stack: [Getter/Setter],
+  __frame: 
+   { name: 'createSite',
+     line: 385,
+     file: 'C:\\Users\\gewen_000\\AppData\\Roaming\\npm\\node_modules\\azure-cli\\lib\\commands\\asm\\site._js',
+     prev: 
+      { name: '__4',
+        line: 202,
+        file: 'C:\\Users\\gewen_000\\AppData\\Roaming\\npm\\node_modules\\azure-cli\\lib\\commands\\asm\\site._js',
+        prev: undefined,
+        active: false,
+        offset: 50,
+        col: 12 },
+     active: false,
+     offset: 20,
+     col: 21 },
+  rawStack: [Getter] }
+Error: Cannot modify this site because another operation is in progress.
+    at createSite__4 (C:\Users\gewen_000\AppData\Roaming\npm\node_modules\azure-cli\lib\commands\asm\websites\websitesclient._js:314:34)
+    at createSite (C:\Users\gewen_000\AppData\Roaming\npm\node_modules\azure-cli\lib\commands\asm\site._js:405:21)
+    at __4 (C:\Users\gewen_000\AppData\Roaming\npm\node_modules\azure-cli\lib\commands\asm\site._js:252:12)
+

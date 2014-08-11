@@ -5,7 +5,7 @@ var connect = require('connect'),
 
 var app = connect()
   .use(st(__dirname + '/public'))
-  .listen(3000);
+  .listen(process.env.PORT || 3000);
 
 var backend = backboneio.createBackend();
 backend.use(backboneio.middleware.memoryStore());
