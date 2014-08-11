@@ -8,8 +8,20 @@
     <script type="text/javascript" src="vendor/underscore-min.js"></script>
     <script type="text/javascript" src="vendor/jquery-1.8.2.min.js"></script>
     <script type="text/javascript" src="vendor/backbone/backbone.js"></script>
+
     <script type="text/javascript" src="scripts/models/User.js"></script>
+    <script type="text/javascript" src="scripts/models/UserInput.js"></script>
+    <script type="text/javascript" src="scripts/models/Question.js"></script>
+    <script type="text/javascript" src="scripts/models/AppModel.js"></script>
+
+    <script type="text/javascript" src="scripts/collections/QuestionList.js"></script>
+
     <script type="text/javascript" src="scripts/views/LoginView.js"></script>
+    <script type="text/javascript" src="scripts/views/QuestionEntryView.js"></script>
+    <script type="text/javascript" src="scripts/views/QuestionListView.js"></script>     
+    <script type="text/javascript" src="scripts/views/AskView.js"></script>
+    <script type="text/javascript" src="scripts/views/InputAreaView.js"></script>
+    <script type="text/javascript" src="scripts/views/AppView.js"></script>
     <!--<script type="text/javascript" src="scripts/app.js"></script> -->
 
 </head>
@@ -22,41 +34,13 @@
 	<div class="content">
     <section class="userInput">
 	        <div class= "LoginView"></div>
-	        <div class="newQuestionView">
-	            <label for="newQuestion" class="questionPrompt">Adventurer wants to know...</label>
-	            <textarea cols=20 rows=2 class="newQuestion" name="newQuestion">kj</textarea>
-	            <a class="addItem" class="button">Ask now!</a>
-	        </div>
+	        <div class="newQuestionView"></div>
 	    </section>
 	    <ul class="questions">
-	        <li class="question">
-	          <div class="voteStatus">
-	              <a class="vote voteup"></a>
-	              <div class="votecount">1</div>
-	              <a class="vote votedown selected"></a>
-	          </div>
-	          <div class="questionText">
-	              <p>What is your quest?</p>
-	              <div class="questionAuthor">From: Brclassge Keeper</div>
-	          </div>
-	      </li>
-	      <li class="question">
-	        <div class="voteStatus">
-	            <a class="vote voteup"></a>
-	            <div class="votecount">1</div>
-	            <a class="vote votedown selected"></a>
-	        </div>
-	        <div class="questionText">
-	            <p>What is your favorite color?</p>
-	            <div class="questionAuthor">From: Brclassge Keeper</div>
-	        </div>
-	      </li>
 	    </ul>
 	</div>
   <script>
-    var user = new User();
-    var loginView = new LoginView({model:user, el:$('.LoginView')});
-    loginView.render();
+    var app = new AppView({el: $('.content')});
   </script>
   
 </body>

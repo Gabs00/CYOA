@@ -77,28 +77,28 @@ h1 {
 
 
 
-#userInput {
+.userInput {
   margin: 40px auto 0 auto;
 }
 
-#logInPrompt {
+.logInPrompt {
   margin-bottom: 10px;
   padding: 8px 5px 0 0;
 }
 
-#userName {
+.userName {
   margin-right: 20px;
   padding: 5px;
   width: 300px;
 }
 
-#questionPrompt {
+.questionPrompt {
   display: block;
   margin-bottom: 10px;
   padding-top: 5px;
 }
 
-#newQuestion {
+.newQuestion {
   box-sizing: border-box;
   display: block;
   height: 100px;
@@ -107,12 +107,12 @@ h1 {
   width: 100%;
 }
 
-#addItem {
+.addItem {
   float: right;
   margin-top: 12px;
 }
 
-#questions {
+.questions {
   margin: 0 auto;
   padding: 60px 0 0 0;
 }

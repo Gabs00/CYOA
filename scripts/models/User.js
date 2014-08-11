@@ -9,17 +9,10 @@ var User = Backbone.Model.extend({
   },
   loginRequest: function(username){
 
-    this.validate(username);
+    this.set('username', username);
+    this.set('isLoggedIn', true);
   },
-  validate: function(username){
-    if(username === undefined || username === null){
-      this.set('isLoggedIn', false);
-    }
-    if(username.length > 0){
-      this.set('username');
-      this.set('isLoggedIn', true);
-    }
-  },
+
   loggedIn: function(status){
     this.trigger('loggedIn', status);
   },

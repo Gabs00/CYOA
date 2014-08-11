@@ -4,26 +4,33 @@ var LoginView = Backbone.View.extend({
   initialize: function(param){
     param.model.on('loggedIn', function(value){
       //Do stuff to make this view hclasse
-      console.log('LoginView received User trigger');
+      
       this.$el.hide();
+      this.trigger('loggedIn');
     }, this);
+    this.render();
   },
   events: {
-    'click a':'sendUserName',
-  },
-
-  attributes: {
-    'class': 'chicken',
+    'click a':'validate',
   },
 
   serialize: function(){
     return $('.userName').val();
   },
 
-  sendUserName: function(caller){
-    console.log(caller);
-    console.log('fired click event');
-    this.model.loginRequest(this.serialize());
+  validate: function(){
+    this.trigger('login', this.serialize());
+  },
+  isValid: function(string){
+    this.sendUserName(string);
+  },
+
+  isInValid: function(string){
+    alert('value: ' + string + 'is invalid');
+  },
+  sendUserName: function(name){
+    
+    this.model.loginRequest(name);
   },
 
   template: function(){
@@ -35,6 +42,6 @@ var LoginView = Backbone.View.extend({
   },
   render: function(){
     this.$el.html(this.template());
-    return this;
+    return this.$el;
   },
 });
